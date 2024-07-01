@@ -93,13 +93,32 @@ public void add(Product product) {
         for (Product product : products) {
             if (product.getId() == id) {
                 products.remove(product);
+                writeFile(products, false, FILE_PRODUCT);
+                break;
             }
         }
     }
 
+
     public void update(int id, Product product) {
-        List<Product> products = readFile(FILE_PRODUCT);
-        products.set(id, product);
-        writeFile(products, false, FILE_PRODUCT);
+        List<Product> products = getAll();
+//        for (Product product1 : products) {
+//            if (product1.getId() == id) {
+//                product1.setName(product.getName());
+//                product1.setPrice(product.getPrice());
+//                product1.setDescription(product.getDescription());
+//                product1.setProducer(product.getProducer());
+//                break;
+//            }
+//        }
+        int size = products.size();
+        for (int i = 0; i < size; i++) {
+            if (products.get(i).getId() == (product.getId())) {
+                products.set(i, product);
+                writeFile(products, false, FILE_PRODUCT);
+                break;
+            }
+        }
+
     }
 }

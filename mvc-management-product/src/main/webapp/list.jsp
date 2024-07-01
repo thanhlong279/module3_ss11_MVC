@@ -68,35 +68,39 @@
                 <td>${product.description}</td>
                 <td>${product.producer}</td>
 
-                <td><a href="/list?action=edit&id=${product.id}">edit</a></td>
-                <td><a href="/list?action=delete&id=${product.id}">delete</a></td>
-<%--                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal${product.id}">--%>
-<%--                        Xóa--%>
-<%--                    </button>--%>
-<%--                    <div class="modal fade" id="deleteModal${product.id}" tabindex="-1"--%>
-<%--                         aria-labelledby="exampleModalLabel" aria-hidden="true">--%>
-<%--                        <div class="modal-dialog">--%>
-<%--                            <div class="modal-content">--%>
-<%--                                <div class="modal-header">--%>
-<%--                                    <h5 class="modal-title" id="exampleModalLabel">Xóa học sinh</h5>--%>
-<%--                                    <button type="button" class="btn-close" data-bs-dismiss="modal"--%>
-<%--                                            aria-label="Close"></button>--%>
-<%--                                </div>--%>
-<%--                                <div class="modal-body">--%>
-<%--                                    Bạn có muốn xóa học sinh có tên là ${product.name}?--%>
-<%--                                    <p style="color: red">Hành động này không thể hoàn tác!!!!!</p>--%>
-<%--                                </div>--%>
-<%--                                <div class="modal-footer">--%>
-<%--                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>--%>
-<%--                                    <form action="/list?action=delete" method="post">--%>
-<%--                                        <input type="hidden" name="id" value="${product.id}">--%>
-<%--                                        <button type="button" class="btn btn-primary">Xác nhận</button>--%>
-<%--                                    </form>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-
+<%--                <td><a href="/list?action=edit&id=${product.id}">edit</a></td>--%>
+                    <%--                <td><a href="/list?action=delete&id=${product.id}">delete</a></td>--%>
+                <td>
+                    <a href="/list?action=edit&id=${product.id}" class="btn btn-warning">edit</a>
+<%--                        <input type="hidden" name="id" value="${product.id}">--%>
+<%--                        <button class="btn btn-warning">Sửa</button>--%>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal${product.id}">
+                        Xóa
+                    </button>
+                    <div class="modal fade" id="deleteModal${product.id}" tabindex="-1"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Xóa học sinh</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Bạn có muốn xóa học sinh có tên là ${product.name}?
+                                    <p style="color: red">Hành động này không thể hoàn tác!!!!!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                    <form action="list" method="post">
+                                        <input type="hidden" name="id" value="${product.id}">
+                                        <button type="submit" class="btn btn-primary">Xác nhận</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

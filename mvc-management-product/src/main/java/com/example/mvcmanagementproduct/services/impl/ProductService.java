@@ -4,6 +4,7 @@ import com.example.mvcmanagementproduct.models.Product;
 import com.example.mvcmanagementproduct.repositories.ProductRepository;
 import com.example.mvcmanagementproduct.services.IProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,12 @@ public class ProductService implements IProductService {
     @Override
     public Product findById(int id) {
         List<Product> products = productRepository.getAll();
-        return products.get(id);
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -47,12 +53,18 @@ public class ProductService implements IProductService {
         productRepository.update(id, product);
     }
 
-        @Override
-        public List<Product> findByName(String name) {
+    @Override
+    public List<Product> findByName(String name) {
         List<Product> products = productRepository.getAll();
-            return products.stream()
-                    .filter(product -> product.getName().toLowerCase().contains(name.toLowerCase()))
-                    .collect(Collectors.toList());
+        List<Product> result = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                result.add(product);
+            }
         }
+        return result;
+    }
+
+
 
 }

@@ -30,9 +30,9 @@ public class ProductController extends HttpServlet {
             case "edit":
                 showEditForm(req, resp);
                 break;
-            case "delete":
-                showDeleteForm(req, resp);
-                break;
+//            case "delete":
+//                showDeleteForm(req, resp);
+//                break;
             default:
                 listProducts(req, resp);
                 break;
@@ -52,18 +52,18 @@ public class ProductController extends HttpServlet {
             requestDispatcher.forward(req, resp);
     }
 
-    private void showDeleteForm(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
-        int id = Integer.parseInt(req.getParameter("id"));
-        Product product = productService.findById(id);
-        RequestDispatcher requestDispatcher;
-        if (product == null) {
-            requestDispatcher = req.getRequestDispatcher("error-404.jsp");
-        } else {
-            req.setAttribute("product", product);
-            requestDispatcher = req.getRequestDispatcher("delete.jsp");
-            requestDispatcher.forward(req, resp);
-        }
-    }
+//    private void showDeleteForm(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
+//        int id = Integer.parseInt(req.getParameter("id"));
+//        Product product = productService.findById(id);
+//        RequestDispatcher requestDispatcher;
+//        if (product == null) {
+//            requestDispatcher = req.getRequestDispatcher("error-404.jsp");
+//        } else {
+//            req.setAttribute("product", product);
+//            requestDispatcher = req.getRequestDispatcher("delete.jsp");
+//            requestDispatcher.forward(req, resp);
+//        }
+//    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -72,6 +72,7 @@ public class ProductController extends HttpServlet {
         // Nếu dữ liệu request gửi đi ko có "action" thì trả về null
         if (action == null) {
             action = "";
+            deleteProduct(req, resp);
         }
         switch (action) {
             case "create":
@@ -79,7 +80,7 @@ public class ProductController extends HttpServlet {
                 break;
             case "edit":
                 editProduct(req, resp);
-            case "delete":
+            case "list":
                 deleteProduct(req, resp);
                 break;
             case "search":
@@ -121,9 +122,10 @@ public class ProductController extends HttpServlet {
             req.getRequestDispatcher("error-404.jsp").forward(req, resp);
         } else {
             productService.remove(id);
-            resp.sendRedirect("/list");
+            resp.sendRedirect(req.getHeader("Referer"));
         }
     }
+
 
     private void createProduct(HttpServletRequest req, HttpServletResponse resp) {
         int id = Integer.parseInt(req.getParameter("id"));
